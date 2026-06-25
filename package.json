@@ -1,0 +1,30 @@
+{
+  "name": "talenan",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "next": "^14.1.0",
+    "next-auth": "^4.24.6",
+    "nodemailer": "^6.9.10",
+    "lucide-react": "^0.344.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.1.0",
+    "prisma": "^5.10.2",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,123 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// NextAuth Models (Google OAuth support)
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model JobPosting {
+  id                 String              @id @default(uuid())
+  title              String
+  slug               String              @unique
+  description        String
+  requirements       String
+  location           String?
+  type               String?             // Full-time, Contract, etc.
+  salaryRange        String?
+  status             String              @default("DRAFT") // DRAFT, PUBLISHED, CLOSED
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  candidates         Candidate[]
+  screeningParameter ScreeningParameter?
+  questions          Question[]
+}
+
+model ScreeningParameter {
+  id             String     @id @default(uuid())
+  jobPostingId   String     @unique
+  jobPosting     JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  minExperience  Int        @default(0) // Minimum years of experience
+  minGpa         Float      @default(0.0) // Minimum GPA threshold
+  minEducation   String     @default("Any") // High School, Bachelor, Master, PhD
+  requiredSkills String     @default("") // Comma-separated or JSON list of mandatory skills
+  matchThreshold Float      @default(50.0) // Score threshold in % (0 - 100)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Question {
+  id           String            @id @default(uuid())
+  jobPostingId String
+  jobPosting   JobPosting        @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  text         String
+  type         String            // TEXT, MULTIPLE_CHOICE, YES_NO
+  options      String            @default("") // Comma-separated list for MULTIPLE_CHOICE options
+  required     Boolean           @default(true)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  answers      CandidateAnswer[]
+}
+
+model Candidate {
+  id             String            @id @default(uuid())
+  jobPostingId   String
+  jobPosting     JobPosting        @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  name           String
+  email          String
+  phone          String
+  bio            String?
+  address        String?
+  web            String?
+  socialUrls     String            @default("") // JSON string array of social URLs (github, linkedin, etc.)
+  education      String            @default("[]") // JSON string representation of education array
+  experience     String            @default("[]") // JSON string representation of experience array
+  skills         String            @default("[]") // JSON string representation of skills array
+  resumeUrl      String?           // Path to uploaded resume file
+  status         String            @default("APPLIED") // APPLIED, SCREENED, SHORTLISTED, INTERVIEW, ACCEPTED, REJECTED
+  score          Float             @default(0.0) // Total score
+  scoreDetails   String            @default("{}") // JSON details of scoring (education, experience, skill match)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  answers        CandidateAnswer[]
+  interviews     Interview[]
+
+  @@unique([jobPostingId, email])
+}
+
+model CandidateAnswer {
+  id          String    @id @default(uuid())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  questionId  String
+  question    Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answer      String
+  createdAt   DateTime  @default(now())
+}
+
+model Interview {
+  id         String   @id @default(uuid())
+  candidateId String
+  candidate  Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  title      String
+  date       String   // YYYY-MM-DD
+  time       String   // HH:MM (e.g. 10:00)
+  duration   Int      @default(60) // in minutes
+  hrEmail    String
+  userEmail  String
+  meetLink   String   @default("") // Google Meet link
+  calendarEventId String? // Event ID in Google Calendar
+  status     String   @default("SCHEDULED") // SCHEDULED, COMPLETED, CANCELLED
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model AppSetting {
+  key       String   @id
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

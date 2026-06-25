@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --primary: #4a154b;
+  --primary-deep: #481a54;
+  --primary-press: #611f69;
+  --primary-tint: #592466;
+  
+  --ink-black: #1d1d1d;
+  --slate-gray: #696969;
+  --dust-taupe: #d9bdde;
+  --charcoal: #2d2d2d;
+  
+  --link-blue: #1264a3;
+  --link-hover: #3860be;
+  
+  --canvas-white: #ffffff;
+  --canvas-cream: #f4ede4;
+  --canvas-lavender: #f9f0ff;
+  
+  --semantic-error: #cc4117;
+  --semantic-success: #007a5a;
+  
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-xxl: 48px;
+  --radius-pill: 90px;
+  
+  /* Shadows (Refined Corporate Soft Shadows) */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px -2px rgba(74, 21, 75, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 12px 24px -4px rgba(74, 21, 75, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  
+  /* Fonts */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Base */
+  --background: var(--canvas-white);
+  --foreground: var(--ink-black);
+}
+
+[data-theme='dark'] {
+  --canvas-white: #120b13;
+  --canvas-cream: #221723;
+  --canvas-lavender: #2c1a30;
+  
+  --primary: #a13ea3;
+  --primary-deep: #b54eb7;
+  --primary-press: #c362c5;
+  --primary-tint: #8c2f8f;
+  
+  --ink-black: #f5ecef;
+  --slate-gray: #b1a5b3;
+  --dust-taupe: #523755;
+  --charcoal: #e0d0d5;
+  
+  --link-blue: #59b2f3;
+  --link-hover: #8fd0ff;
+  
+  --background: var(--canvas-white);
+  --foreground: var(--ink-black);
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Custom Scrollbar for Corporate UI */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--dust-taupe);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-tint);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  font-size: 15px; /* crisp, readable base corporate size */
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a {
+  color: var(--link-blue);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Headings with slack corporate tracking */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--ink-black);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 3rem; /* ~48px */
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.85rem; /* ~30px */
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1.35rem; /* ~22px */
+  line-height: 1.35;
+}
+
+h4 {
+  font-size: 1.1rem; /* ~18px */
+  line-height: 1.4;
+}
+
+/* Eyebrows */
+.eyebrow {
+  font-size: 0.7rem; /* 11px */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Buttons with slack pill style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: var(--radius-pill); /* 90px */
+  border: none;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  min-height: 44px;
+  box-shadow: var(--shadow-sm);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--canvas-white);
+}
+.btn-primary:hover {
+  background-color: var(--primary-press);
+  box-shadow: 0 4px 12px rgba(74, 21, 75, 0.2);
+}
+
+.btn-secondary {
+  background-color: var(--canvas-lavender);
+  color: var(--primary);
+  box-shadow: none;
+}
+.btn-secondary:hover {
+  background-color: rgba(97, 31, 105, 0.12);
+}
+
+.btn-outline {
+  background-color: var(--canvas-white);
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.btn-outline:hover {
+  background-color: var(--canvas-lavender);
+}
+
+/* Page Headers */
+.public-header {
+  background-color: var(--canvas-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--canvas-cream);
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-circle-1, .nav-logo-circle-2 {
+  display: none;
+}
+
+.brand-logo::before {
+  content: '■';
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-right: -4px;
+}
+
+.brand-logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -1px;
+}
+
+/* Corporate Card Layouts */
+.card {
+  background-color: var(--canvas-white);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid rgba(74, 21, 75, 0.06);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.card-lifted:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(74, 21, 75, 0.12);
+}
+
+/* Form Styling - Refined and Corporate */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: var(--slate-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(20, 20, 19, 0.15);
+  background-color: var(--canvas-white);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(74, 21, 75, 0.1);
+}
+
+/* Corporate-Grade Clean Tables */
+.table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background-color: var(--canvas-white);
+  border: 1px solid rgba(74, 21, 75, 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table th {
+  padding: 14px 20px;
+  font-weight: 700;
+  color: var(--slate-gray);
+  border-bottom: 1.5px solid var(--canvas-cream);
+  font-size: 0.75rem;
+  background-color: var(--canvas-cream);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.custom-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(74, 21, 75, 0.04);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.custom-table tr:last-child td {
+  border-bottom: none;
+}
+
+.custom-table tr:hover td {
+  background-color: rgba(249, 240, 255, 0.4);
+}
+
+/* Modern Unified Badge Styling */
+.badge, .status-badge-inline {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+}
+
+/* Draft / Applied / Terkirim */
+.status-draft, .status-applied, .status-terkirim, .status-pending {
+  background-color: var(--canvas-cream);
+  color: var(--slate-gray);
+  border-color: rgba(20, 20, 19, 0.08);
+}
+
+/* Published / Shortlisted / Accepted / Lolos / Diterima */
+.status-published, .status-shortlisted, .status-accepted, .status-lolos, .status-diterima, .status-success {
+  background-color: rgba(0, 122, 90, 0.06);
+  color: var(--semantic-success);
+  border-color: rgba(0, 122, 90, 0.15);
+}
+
+/* Screened / Ter-screen */
+.status-screened, .status-ter-screen {
+  background-color: rgba(18, 100, 163, 0.06);
+  color: var(--link-blue);
+  border-color: rgba(18, 100, 163, 0.15);
+}
+
+/* Interview / Wawancara */
+.status-interview, .status-wawancara {
+  background-color: rgba(97, 31, 105, 0.06);
+  color: var(--primary);
+  border-color: rgba(97, 31, 105, 0.15);
+}
+
+/* Closed / Rejected / Ditolak */
+.status-closed, .status-rejected, .status-ditolak, .status-danger {
+  background-color: rgba(204, 65, 23, 0.06);
+  color: var(--semantic-error);
+  border-color: rgba(204, 65, 23, 0.15);
+}
+
+/* Layout Utilities */
+.page-container {
+  max-width: 1240px;
+  margin: 100px auto 60px auto;
+  padding: 0 24px;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Pastel-Mesh gradient backdrops (Slack signature style) */
+.pastel-mesh-bg {
+  background: radial-gradient(circle at 15% 15%, rgba(255, 240, 230, 0.5) 0%, transparent 40%),
+              radial-gradient(circle at 85% 85%, rgba(233, 216, 255, 0.5) 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(244, 237, 228, 0.3) 0%, transparent 60%);
+  background-color: var(--canvas-white);
+}
+
+/* Stat display styling */
+.stat-card-big {
+  background-color: var(--canvas-white);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid rgba(74, 21, 75, 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-num {
+  font-size: 2.85rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.03em;
+}
+
+/* Footer Section */
+.footer {
+  background-color: var(--primary);
+  color: var(--canvas-white);
+  padding: 60px 48px 48px 48px;
+  margin-top: auto;
+}
+
+.footer-link-col h4 {
+  color: var(--dust-taupe);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.96px;
+  margin-bottom: 20px;
+}
+
+.footer-link-col ul {
+  list-style: none;
+}
+
+.footer-link-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-link-col ul li a {
+  color: var(--dust-taupe);
+  font-size: 0.9rem;
+}
+.footer-link-col ul li a:hover {
+  color: var(--canvas-white);
+  text-decoration: underline;
+}
+
+/* Action button override details */
+.action-btn-circle {
+  border: 1px solid rgba(74, 21, 75, 0.1);
+  background-color: var(--canvas-white);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--slate-gray);
+}
+.action-btn-circle:hover {
+  background-color: var(--canvas-lavender);
+  color: var(--primary);
+  border-color: var(--primary-tint);
+}
